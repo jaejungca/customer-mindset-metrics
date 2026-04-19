@@ -2,6 +2,7 @@
 title: "Customer Mindset Metrics, Chapter 6"
 subtitle: "Case Study: Zenten Shampoo"
 author: "Texbook Author, modified by Jae Jung"
+date: today
 format: 
   html:
     theme: flatly
@@ -20,7 +21,9 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Learning Objectives
+# Introduction
+
+## Learning Objectives
 
 These R notes build on the conceptual knowledge on customer attitude metrics. By the end of the application, you will be able to:
 
@@ -28,7 +31,7 @@ These R notes build on the conceptual knowledge on customer attitude metrics. By
 
 2.   Quantify the short- and long-run gains in sales that originate from improvement in mindset metrics.
 
-# Preparations and Set Up
+## Preparations and Set Up
 
 Before we start, let us do some preparation work to get ready.
 
@@ -38,30 +41,11 @@ We need to:
 
 -   Clone GitHub repository of this chapter at [https://github.com/jaejungca/customer-mindset-metrics](https://github.com/jaejungca/customer-mindset-metrics) to your local machine under the folder you just created. 
 
--   Download the data set needed for this R application onto your working directory. The data set for this application, *mindset_shampoo.xlsx* is available on the website of this book.
-
--   Load the data set to R for analysis as we proceed.
-
-In order to load the data sets to R, we need to run only a **part** of the following chunk of code, depending on the **operating system** of your device. To avoid running code that is not applicable and receiving error messages, please add ‘#’ before each line of inapplicable code in the chunk below. For example, if you are using Windows, you need to put ’#’ before *‘setwd("\~/Downloads/mindset")’*. See below.
-
-```{r}
-# Please run the following codes depending on the operating system on your laptop/PC. 
-
-# if you are using iOS, and your *mindset* folder is created under "Downloads" on your Mac: you will need to first set your working directory to *mindset* folder:
-
-setwd("~/Downloads/mindset")
-
-# if you are using Windows, and your *mindset* folder is created in your H drive: you will need to first set your working directory to *mindset* folder:
-
-# setwd("H:/Downloads/mindset")
-
-```
-
-Now we are ready to go.
-
-## 1. Data
+-   The data set for this application, *mindset_shampoo.xlsx* has been moved to "data" folder.
 
 </br>
+
+## Packages
 
 ```{r include=FALSE}
 #Before we load the dataset, we need to install and load a few packages.  
@@ -76,11 +60,10 @@ if(!require(tidyverse)) install.packages("tidyverse",repos = "http://cran.us.r-p
 
 library(knitr)
 library(readxl)
-library(tseries)
-library(vars)
-library(R6)
+library(tseries) # for performing time series analysis
+library(vars) # for estimating vector autoregressive (VAR) models
+library(R6) # for creating classes and objects in R
 library(tidyverse)
-
 ```
 
 Next, we will load the dataset to R.
