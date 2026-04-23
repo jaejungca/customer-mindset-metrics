@@ -11,9 +11,13 @@ format:
     toc-expand: 1
     toc-location: right-body
     number-sections: true
+    code-overflow: wrap
+    code-block-border-left: true
+    code-line-numbers: true
     embed-resources: true
     df-print: paged
 execute:
+  echo: fenced
   freeze: true
   error: false
   #cache: true
@@ -21,6 +25,33 @@ execute:
 ---
 
 # Introduction
+
+## Case Background
+
+Zanten is a shampoo brand that has been in the market for a while. Watching the dark clouds over the city of London from her office, Bo Zhang, the Chief Marketing Officer of Sahmpoo brand Zanten, had many thoughts about what to day at tomorrow's six-monthly meeting regarding the somewhat radical changes she was planning to make with her next advertising and promotional decisions. 
+
+The next day, Zhang and the Chief Executive Office, Anne Comstock, met over Zoom to discuss the most recent performance outcomes and decide hte best possible moves for the future. Zhang began to talk excitedly: 
+
+"I am very proud of my team. They have run very successful marketing campgains over the past few months on socia media, giving us a strong position in consumers' hearts. See how we outperfrom our closest competitor in terms of brand liking." Sharing her screen, she showed Anne Figure 6.1, which shows the trend of liking for Zanten and its closest competitor over the past 24 months.
+
+Zhang continued with a quiet voice: "However, I must admit that the gains in brank liking have not yet been translated into higher revenues. But I believe that these gains in consumer heart share will soon result in better financial performance. We just need to promote ourselves more heavily or increase our advertising substantially, and also believe in ourselves."
+
+The CEO thanksed Zhang and said "These analytic insights are great. But htee is anohter pressing issue that we are facing now. The fierce competition is putting a lot of presssure on our margins. As a result, we may need to be a bit careful about how we spend our budget. Therefore, it is extremely important that you justify how these positive changes in consumers' attitudes will turn into better sales performance."
+
+After the meeting, Zhang continued her deliverations on how to allocate marketing resoruces taht would provide noticeable and long-lasting improvemewnts not only in customers' attitdues but also in the brand's sales performance. With one eye on her marketing dashboard on her laptop, she called her analytics team.
+
+"I would like you to prepare a report that provides some concrete directions on how the effectiveness of advertising and promotional campaigns can be improved by examining customer mindset metrics," she said. "I wold like to know (1) to what extent the advertising and promotional campaigns run in recent years have affected consumers' attitudes towards the brand and (2) whether the changes in consumers' perceptions have yielded any significant improvements in our brand's sales performance."
+
+To help Zhang, hte marketing analytics team gathered data from variouis sources.
+
+Moving forward, Zhang has to decide on her promotion and advertising spending choices, and ponders two options:
+
+1. Quintupling advertising spending from *£100K* to *£500K* or 
+
+2. Doubling promotion spending from *£100K* to *£200K*. S
+
+Which of these options should Zhang propose to the CEO? How would these decisions infuence the hearts and minds of consumers, and hte sales performance of the compnay?
+
 
 ## Learning Objectives
 
@@ -45,6 +76,7 @@ We need to:
 ## Packages
 
 ```{r include=FALSE}
+#| label: load-packages
 #Before we load the dataset, we need to install and load a few packages.
 
 if (!require(knitr)) {
@@ -76,13 +108,17 @@ library(tidyverse)
 
 ## Data
 
+### Loading the dataset
 Next, we will load the dataset to R.
 
 ```{r warning=FALSE}
 #| label: load-data
 # load the dataset
 data_shampoo <- read.csv("data/mindset_shampoo.csv")
+data_shampoo |> tibble()
 ```
+
+### Dataset description
 
 We can take a preview of the dataset.
 
@@ -91,9 +127,33 @@ We can take a preview of the dataset.
 # Take a look at the data
 
 class(data_shampoo)
-data_shampoo <- as.data.frame(data_shampoo)
 data_shampoo
 ```
+
+### Variables
+
+-   **Advertising**: Monthly total spending on advertising media; source: internal company data.
+
+-   **Promotion**: Monthly total spending on promotion; source: internal company data.
+
+-   **Price**: Monthly average price of the shampoo; source: internal company data.
+
+-   **Aided Awareness(% aware)**: % aided awareness is the percentage of respondents who responded Yes to the question "Which of the following brands have you heard of? (Yes/No)" 
+
+   -   Online monthly consumer survey conducted by a market research firm.
+   -   Respondents are given a list of brands and responds Yes or No to each brand. 
+   -   The percentage of respondents who said Yes to Zanten is the aided awareness.
+
+-   **Brand Consideration(% considering buying)**: % brand consideration is the percentage of respondents who responded Yes to the question "Which of these brands would you consider buying? (Yes/No)"
+   -   Online monthly consumer survey conducted by a market research firm.
+   -   Respondents are given a list of brands and responds Yes or No to each brand. 
+   -   The percentage of respondents who said Yes to Zanten is the consideration.
+
+-   **Brand Liking (average liking)**: Brand liking is measured on a seven-point scale, where 1 means "I don't like it at all" and 7 means "I like it a lot" to a question, "Please indicate how much you like brand X" 
+
+   -   The average score of all respondents is the brand liking for that month.
+
+-   **Sales (volume)**: Monthly sales volume of the shampoo (in milliliters); source: internal company data.
 
 ::: callout-note
 ### Plan of analysis
@@ -137,7 +197,7 @@ table_potential
 We get that potential is 0.725 for awareness, 0.825 for consideration and 0.263 for liking.
 
 ::: callout-note
-### **Question**:
+### **Question 1**:
 
 Judging from what you have now, which mindset metric should you put more effort into? Why?
 :::
@@ -159,6 +219,7 @@ Judging from what you have now, which mindset metric should you put more effort 
 #awareness
 ar1 <- ar(data_shampoo$awareness, aic = TRUE)
 ar1
+summary(ar1)
 
 #consideration
 ar2 <- ar(data_shampoo$consideration, aic = TRUE)
@@ -189,7 +250,7 @@ Responsiveness, or **lift**, is the **short-term response of the attitude metric
 -   For example, the standard multiplicative response model produces elasticities as the following **responsiveness** metrics:
 
 $$ 
-Y_t= cY_{t-1}^\gamma X_{1t}^{\beta_1} X_{2t}^{\beta_2} e^{u_t}
+Y_t = cY_{t-1}^\gamma X_{1t}^{\beta_1} X_{2t}^{\beta_2} e^{u_t}
 $$
 
 where *Y* is an attitude metric and $X_i$ (i=1,2) are marketing instruments. Not only do such response models provide readily interpretable results, but they have also been shown to outperform more complex specifications in forecasting product trials for consumer-packaged goods.
@@ -205,7 +266,7 @@ $$
 To estimate the responsiveness model, which is multiplicative, an easy way is to take the logarithm of both sides of the equation and estimate the model as a **log-linear model**. To be specific, we first take the log such that:
 
 $$ 
-log(Y_t)= c'+\gamma log(Y_{t-1}) + {\beta_1} log(X_{1t}) +  {\beta_2} log(X_{2t}) + {u_t} 
+log(Y_t) = c'+\gamma log(Y_{t-1}) + {\beta_1} log(X_{1t}) +  {\beta_2} log(X_{2t}) + {u_t} 
 $$
 
 Now, we examine the *log-linear model* for each mindset metric and sales to get responsiveness:
@@ -444,7 +505,7 @@ appeal_table
 ```
 
 ::: callout-note
-**Question**: What is your takeaway from these results? Which marketing tool (i.e. promotion or advertising) is more effective for the marketing manager of Zanten to improve consumer awareness, consideration and liking? If you were the manager of this shampoo brand, what type of marketing strategy would you like to adopt in general?
+**Question 2**: What is your takeaway from these results? Which marketing tool (i.e. promotion or advertising) is more effective for the marketing manager of Zanten to improve consumer awareness, consideration and liking? If you were the manager of this shampoo brand, what type of marketing strategy would you like to adopt in general?
 :::
 
 # What-if analysis
@@ -459,7 +520,9 @@ In particular, we will evaluate **two alternative options** for Zhang, the marke
 
 ## Quintupling advertising spending
 
+::: {.callout-caution title="Scenario"}
 Suppose that Zhang decides to quintuple advertising spending from *£100K* to *£500K* while keeping the rest of the marketing mix decisions same.
+:::
 
 Let us visualise the calculations by using the below table:
 
@@ -694,6 +757,8 @@ table_whatif <- data.frame(
 table_whatif
 ```
 
+:::callout-tip
+### Interpretation
 By summing up $Contribution_{awareness}$, $Contribution_{consideration}$, and $Contribution_{liking}$, we can get the total long run gain in sales that originates from improvement in mindset metrics.
 
 -   We have: 0.074 + 0.014 + 0.008 = 0.096
@@ -706,13 +771,16 @@ By summing up $Contribution_{awareness}$, $Contribution_{consideration}$, and $C
 
 -   Sales gain due to transactions = 10.8% - 9.6% = 1.2%
 
-Therefore, we can tell that by quintupling advertising, there is a significant improvement in mindset metrics, and such improvement can contribute to a 8.6 per cent increase in sales. The eventual net effect on long-run sales is a 10.8 per cent increase, and this is due to a 1.2 per cent increase in sales due to transactions.
+Therefore, we can tell that by quintupling advertising, there is a significant improvement in mindset metrics, and such improvement can contribute to a 9.6 per cent increase in sales. The eventual net effect on long-run sales is a 10.8 per cent increase, and this is due to a 1.2 per cent increase in sales due to transactions.
+:::
 
 Next, we will examine the scenario in which the brand manager of Zanten, Zhang, doubles the promotion spending.
 
 ## Doubling promotion spending
 
+::: {.callout-caution title:"Scenario"}
 Suppose that the marketing manager of Zanten doubles the promotion spending from *£100K* to *£200K* and does not make further changes in the marketing mix. What would be the impact on long-term sales?
+:::
 
 Let us visualise the calculations that we need to make by using the table below:
 
@@ -756,7 +824,7 @@ Briefly, we need to:
 
 4.  Finally, we will **decompose** the long-run sales gain into transaction route and mindset route.
 
-### New
+### New Values
 
 The column *'Start'* from the above table summarizes the base values for each metric. For example, the average level of awareness, expressed in percentage terms, is 21.51%, leaving a 78.49% potential.
 
@@ -953,6 +1021,8 @@ table_whatif2 <- data.frame(
 table_whatif2
 ```
 
+::: callout-tip
+### Interpretation
 By summing up $Contribution_{awareness}$, $Contribution_{consideration}$, and $Contribution_{liking}$, we can get the total long run gain in sales that originates from improvement in mindset metrics.
 
 -   We have: 0.014 + 0.022 + 0.039 = 0.075
@@ -963,7 +1033,6 @@ Given that there is a 24.5% gain in sales, we can tell that:
 -   Sales gain due to mindset metrics = 7.5%
 -   Sales gain due to transactions = 24.5% - 7.5% = 17%
 
-
 > Recall that quintupling advertising expense resulted in a 10.8% increase in brand sales. The above analysis shows that doubling promotion results in a 24.5% increase in sales. 
 
 > Therefore, we can conclude that doubling promotion seems to be more effective in driving up sales. 
@@ -971,6 +1040,11 @@ Given that there is a 24.5% gain in sales, we can tell that:
 > However, doubling promotion generates less improvement in consumer mindset metrics. If the ultimate objective of the marketing manager is to 'build a brand', then gains in mindset metrics should be more important. Therefore, depending on the strategic objective of the brand, Zhang, the marketing manager of Zanten, may want to choose either of these two strategies.
 
 > To summarise, marketing managers can conduct such scenario analyses, compare the estimated long-run effects, and make evidence-based decisions to win their customers' minds, hearts, and sales.
+:::
+
+::: callout-note
+**Question 3**: What is your takeaway from the above scenario analyses? Which marketing tool (i.e. promotion or advertising) is more effective for the marketing manager of Zanten to improve consumer awareness, consideration and liking? What type of marketing strategy would you like to recommend Ms. Zhang to adopt in general?
+:::
 
 # Saving and Loading Files
 
