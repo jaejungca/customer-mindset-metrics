@@ -21,16 +21,15 @@ execute:
   freeze: true
   error: false
   #cache: true
-
 ---
 
 # Introduction
 
 ## Case Background
 
-Zanten is a shampoo brand that has been in the market for a while. Watching the dark clouds over the city of London from her office, Bo Zhang, the Chief Marketing Officer of Sahmpoo brand Zanten, had many thoughts about what to day at tomorrow's six-monthly meeting regarding the somewhat radical changes she was planning to make with her next advertising and promotional decisions. 
+Zanten is a shampoo brand that has been in the market for a while. Watching the dark clouds over the city of London from her office, Bo Zhang, the Chief Marketing Officer of Sahmpoo brand Zanten, had many thoughts about what to day at tomorrow's six-monthly meeting regarding the somewhat radical changes she was planning to make with her next advertising and promotional decisions.
 
-The next day, Zhang and the Chief Executive Office, Anne Comstock, met over Zoom to discuss the most recent performance outcomes and decide hte best possible moves for the future. Zhang began to talk excitedly: 
+The next day, Zhang and the Chief Executive Office, Anne Comstock, met over Zoom to discuss the most recent performance outcomes and decide hte best possible moves for the future. Zhang began to talk excitedly:
 
 "I am very proud of my team. They have run very successful marketing campgains over the past few months on socia media, giving us a strong position in consumers' hearts. See how we outperfrom our closest competitor in terms of brand liking." Sharing her screen, she showed Anne Figure 6.1, which shows the trend of liking for Zanten and its closest competitor over the past 24 months.
 
@@ -46,12 +45,11 @@ To help Zhang, hte marketing analytics team gathered data from variouis sources.
 
 Moving forward, Zhang has to decide on her promotion and advertising spending choices, and ponders two options:
 
-1. Quintupling advertising spending from *£100K* to *£500K* or 
+1.  Quintupling advertising spending from *£100K* to *£500K* or
 
-2. Doubling promotion spending from *£100K* to *£200K*. S
+2.  Doubling promotion spending from *£100K* to *£200K*. S
 
 Which of these options should Zhang propose to the CEO? How would these decisions infuence the hearts and minds of consumers, and hte sales performance of the compnay?
-
 
 ## Learning Objectives
 
@@ -109,6 +107,7 @@ library(tidyverse)
 ## Data
 
 ### Loading the dataset
+
 Next, we will load the dataset to R.
 
 ```{r warning=FALSE}
@@ -138,20 +137,25 @@ data_shampoo
 
 -   **Price**: Monthly average price of the shampoo; source: internal company data.
 
--   **Aided Awareness(% aware)**: % aided awareness is the percentage of respondents who responded Yes to the question "Which of the following brands have you heard of? (Yes/No)" 
+-   **Aided Awareness(% aware)**: % aided awareness is the percentage of respondents who responded Yes to the question "Which of the following brands have you heard of? (Yes/No)"
 
-   -   Online monthly consumer survey conducted by a market research firm.
-   -   Respondents are given a list of brands and responds Yes or No to each brand. 
-   -   The percentage of respondents who said Yes to Zanten is the aided awareness.
+    -   Online monthly consumer survey conducted by a market research firm.
+
+    -   Respondents are given a list of brands and responds Yes or No to each brand.
+
+    -   The percentage of respondents who said Yes to Zanten is the aided awareness.
 
 -   **Brand Consideration(% considering buying)**: % brand consideration is the percentage of respondents who responded Yes to the question "Which of these brands would you consider buying? (Yes/No)"
-   -   Online monthly consumer survey conducted by a market research firm.
-   -   Respondents are given a list of brands and responds Yes or No to each brand. 
-   -   The percentage of respondents who said Yes to Zanten is the consideration.
 
--   **Brand Liking (average liking)**: Brand liking is measured on a seven-point scale, where 1 means "I don't like it at all" and 7 means "I like it a lot" to a question, "Please indicate how much you like brand X" 
+    -   Online monthly consumer survey conducted by a market research firm.
 
-   -   The average score of all respondents is the brand liking for that month.
+    -   Respondents are given a list of brands and responds Yes or No to each brand.
+
+    -   The percentage of respondents who said Yes to Zanten is the consideration.
+
+-   **Brand Liking (average liking)**: Brand liking is measured on a seven-point scale, where 1 means "I don't like it at all" and 7 means "I like it a lot" to a question, "Please indicate how much you like brand X"
+
+    -   The average score of all respondents is the brand liking for that month.
 
 -   **Sales (volume)**: Monthly sales volume of the shampoo (in milliliters); source: internal company data.
 
@@ -243,9 +247,9 @@ To summarise, stickiness measures for awareness, consideration and liking metric
 
 ## C. Responsiveness
 
-Responsiveness, or **lift**, is the **short-term response of the attitude metric with respect to a marketing stimulus**. 
+Responsiveness, or **lift**, is the **short-term response of the attitude metric with respect to a marketing stimulus**.
 
--   We recommend using well-established, robust response functions to estimate responsiveness. 
+-   We recommend using well-established, robust response functions to estimate responsiveness.
 
 -   For example, the standard multiplicative response model produces elasticities as the following **responsiveness** metrics:
 
@@ -255,9 +259,9 @@ $$
 
 where *Y* is an attitude metric and $X_i$ (i=1,2) are marketing instruments. Not only do such response models provide readily interpretable results, but they have also been shown to outperform more complex specifications in forecasting product trials for consumer-packaged goods.
 
-Note that *responsiveness* may be related to **potential** as follows: the closer the attitude metric is to its ceiling value, the more difficult it will be to register further increases through marketing. 
+Note that *responsiveness* may be related to **potential** as follows: the closer the attitude metric is to its ceiling value, the more difficult it will be to register further increases through marketing.
 
--  To reflect that in the calculation, once we get the responsiveness of each mindset metric and sales, we can multiply it with the corresponding potential:
+-   To reflect that in the calculation, once we get the responsiveness of each mindset metric and sales, we can multiply it with the corresponding potential:
 
 $$
 \theta_i = \beta_i * Potential_i
@@ -346,11 +350,11 @@ table_response_sales
 
 ## D. Conversion
 
--   An attitudinal metric would be meaningless for a brand if it does not impact sales. That is why we need to evaluate its power in terms of changing sales. 
+-   An attitudinal metric would be meaningless for a brand if it does not impact sales. That is why we need to evaluate its power in terms of changing sales.
 
--   **Conversion** is the degree to which movements in the *attitudinal metric* convert to sales, similar to a conversion rate of leads into customer orders in B2B. 
+-   **Conversion** is the degree to which movements in the *attitudinal metric* convert to sales, similar to a conversion rate of leads into customer orders in B2B.
 
-  -   To calculate conversion, we again allow for a multiplicative funnel model that can be applied across different conditions.
+-   To calculate conversion, we again allow for a multiplicative funnel model that can be applied across different conditions.
 
 For example, with intermediate attitudinal metrics awareness ($A_t$), consideration ($C_t$ ) and liking ($L_t$), a multiplicative funnel model for sales revenue ($S_t$) would be:
 
@@ -434,7 +438,6 @@ Finally, the appeal of each marketing mix action (i.e. promotion and advertising
 $$
 Appeal = Potential * Reponsiveness_{short-run} * 1/(1-Stickiness) * Conversion
 $$
-
 
 ```{r echo=FALSE}
 #| label: appeal-table
@@ -559,13 +562,13 @@ table_whatif
 >
 > To briefly summarise, we need to do the following:
 
-1. First, derive the new level of each mindset metric and sales based on the changes that we decide to make to the marketing mix (i.e. advertising).
+1.  First, derive the new level of each mindset metric and sales based on the changes that we decide to make to the marketing mix (i.e. advertising).
 
-2. Then, by comparing the new and the old level, we can derive immediate or short-run gain for each metric and sale.
+2.  Then, by comparing the new and the old level, we can derive immediate or short-run gain for each metric and sale.
 
-3. Next, with the help of carryover parameters from responsiveness models, we transform those short-run gains to corresponding long-run gains.
+3.  Next, with the help of carryover parameters from responsiveness models, we transform those short-run gains to corresponding long-run gains.
 
-4. And lastly, to decompose the long-run gain in sales and attribute it to gains due to mindset metrics and gains due to transaction, we calculate how much those long-run gains from step 3 translate to an actual increase in sales. 
+4.  And lastly, to decompose the long-run gain in sales and attribute it to gains due to mindset metrics and gains due to transaction, we calculate how much those long-run gains from step 3 translate to an actual increase in sales.
 
 ### New values
 
@@ -577,7 +580,6 @@ $$
 New_{M_i} = Start_{M_i} *(Advertising_{new}/Advertising_{old})^{Responsiveness_{Advertising_{M_i}}})
 $$
 
-
 ```{r warning=FALSE}
 #| label: convert-to-numeric
 # This code chunk is to make the variables numeric
@@ -587,7 +589,6 @@ table_whatif$Gain <- as.numeric(table_whatif$Gain)
 table_whatif$LRGain <- as.numeric(table_whatif$LRGain)
 table_whatif$Contribution <- as.numeric(table_whatif$Contribution)
 ```
-
 
 ```{r}
 #| label: new-values
@@ -650,7 +651,7 @@ gain_sales <- round((new_sales / mean(data_shampoo$vol)) - 1, 3)
 
 ### Long-run gain
 
-Now, we can translate the short-run gain to long-run gain for each metric and sales performance. 
+Now, we can translate the short-run gain to long-run gain for each metric and sales performance.
 
 -   To do this, we need to make use of the **carryover (gamma)** we get from responsiveness models (you may want to go back and check the tables named `table_responsiveness`). Again, for each mindset metric $M_i$ and sales:
 
@@ -757,8 +758,9 @@ table_whatif <- data.frame(
 table_whatif
 ```
 
-:::callout-tip
+::: callout-tip
 ### Interpretation
+
 By summing up $Contribution_{awareness}$, $Contribution_{consideration}$, and $Contribution_{liking}$, we can get the total long run gain in sales that originates from improvement in mindset metrics.
 
 -   We have: 0.074 + 0.014 + 0.008 = 0.096
@@ -778,7 +780,7 @@ Next, we will examine the scenario in which the brand manager of Zanten, Zhang, 
 
 ## Doubling promotion spending
 
-::: {.callout-caution title:"Scenario"}
+::: {.callout-caution title="Scenario"}
 Suppose that the marketing manager of Zanten doubles the promotion spending from *£100K* to *£200K* and does not make further changes in the marketing mix. What would be the impact on long-term sales?
 :::
 
@@ -1023,6 +1025,7 @@ table_whatif2
 
 ::: callout-tip
 ### Interpretation
+
 By summing up $Contribution_{awareness}$, $Contribution_{consideration}$, and $Contribution_{liking}$, we can get the total long run gain in sales that originates from improvement in mindset metrics.
 
 -   We have: 0.014 + 0.022 + 0.039 = 0.075
@@ -1033,9 +1036,9 @@ Given that there is a 24.5% gain in sales, we can tell that:
 -   Sales gain due to mindset metrics = 7.5%
 -   Sales gain due to transactions = 24.5% - 7.5% = 17%
 
-> Recall that quintupling advertising expense resulted in a 10.8% increase in brand sales. The above analysis shows that doubling promotion results in a 24.5% increase in sales. 
+> Recall that quintupling advertising expense resulted in a 10.8% increase in brand sales. The above analysis shows that doubling promotion results in a 24.5% increase in sales.
 
-> Therefore, we can conclude that doubling promotion seems to be more effective in driving up sales. 
+> Therefore, we can conclude that doubling promotion seems to be more effective in driving up sales.
 
 > However, doubling promotion generates less improvement in consumer mindset metrics. If the ultimate objective of the marketing manager is to 'build a brand', then gains in mindset metrics should be more important. Therefore, depending on the strategic objective of the brand, Zhang, the marketing manager of Zanten, may want to choose either of these two strategies.
 
