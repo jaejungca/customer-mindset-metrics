@@ -130,7 +130,7 @@ class(data_shampoo)
 data_shampoo
 ```
 
-### Variables
+### Variables {#sec-variables}
 
 -   **Advertising**: Monthly total spending on advertising media; source: internal company data.
 
@@ -255,14 +255,14 @@ $$
 A_t = c \times A_{t-1}^{s} \times X_{1t}^{\beta_1} \times X_{2t}^{\beta_2} \times X_{3t}^{\beta_3} \times e^{u_t} ​,
 $$
 
-where $A_t$​ is the current awareness/consideration/liking measure, the X’s are marketing inputs, and $s$ is the **stickiness (carryover) parameter**. 
+where $A_t$​ is the current awareness/consideration/liking measure, the X’s are marketing inputs, and $s$ is the **stickiness (carryover) parameter**.
 
 So, in short, **stickiness is the coefficient on the lagged attitude metric**. The paper says that if $s=0.60$, then about **60% of the change carries into the next period**; values closer to 1 mean a more persistent effect.
 
 ::: callout-important
 So, boiled down:
 
-**Stickiness = persistence of awareness/consideration/liking over time = the lagged carryover coefficient in the response model.** 
+**Stickiness = persistence of awareness/consideration/liking over time = the lagged carryover coefficient in the response model.**
 :::
 
 ## C. Responsiveness
@@ -528,7 +528,8 @@ appeal_table
 ```
 
 ::: callout-note
-### **Question 2**: 
+### **Question 2**:
+
 What is your takeaway from these results? Which marketing tool (i.e. promotion or advertising) is more effective for the marketing manager of Zanten to improve consumer awareness, consideration and liking? If you were the manager of this shampoo brand, what type of marketing strategy would you like to adopt in general?
 :::
 
@@ -1067,8 +1068,15 @@ Given that there is a 24.5% gain in sales, we can tell that:
 :::
 
 ::: callout-note
-### **Question 3**: 
-As Ms Zhang has to decide on the choices on two options, which of the two options should she propose to the CEO? Which marketing tool (i.e. promotion or advertising) is more effective for the marketing manager of Zanten to improve consumer awareness, consideration and liking? how should Ms Zhang justify her proposal to the CEO?
+### **Question 3**:
+
+As Ms. Zhang has to decide on the choices on two options, which of the two options should she propose to the CEO? Which marketing tool (i.e. promotion or advertising) is more effective for the marketing manager of Zanten to improve consumer awareness, consideration and liking? how should Ms Zhang justify her proposal to the CEO?
+:::
+
+::: callout-note
+### **Question 4**:
+
+Review the variable descriptions in @sec-variables and recall the variables you have used in your analyses so far. To use customer mindset metrics in the MSDM CEP project, the client must have data on customer mindset metrics (i.e., awareness, consideration, and brand liking), marketing variables (e.g., advertising, promotion, and price), and sales. Describe the characteristics of the data in this case and compare them with the data available to your client in terms of both the unit of analysis (weekly, monthly, yearly, etc.) and the types of variables included. Does the client have all the necessary variables over a sufficiently long time frame? What would you recommend to help the client gain better insights into the relationship between customer mindset metrics and conversion? What are the cost implications of securing any additional data?
 :::
 
 # Saving and Loading Files
