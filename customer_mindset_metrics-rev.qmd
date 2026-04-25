@@ -21,6 +21,7 @@ execute:
   freeze: true
   error: false
   #cache: true
+bibliography: references.bib
 ---
 
 # Introduction
@@ -29,19 +30,19 @@ execute:
 
 Zanten is a shampoo brand that has been in the market for a while. Watching the dark clouds over the city of London from her office, Bo Zhang, the Chief Marketing Officer of Sahmpoo brand Zanten, had many thoughts about what to day at tomorrow's six-monthly meeting regarding the somewhat radical changes she was planning to make with her next advertising and promotional decisions.
 
-The next day, Zhang and the Chief Executive Office, Anne Comstock, met over Zoom to discuss the most recent performance outcomes and decide hte best possible moves for the future. Zhang began to talk excitedly:
+The next day, Zhang and the Chief Executive Office, Anne Comstock, met over Zoom to discuss the most recent performance outcomes and decide the best possible moves for the future. Zhang began to talk excitedly:
 
-"I am very proud of my team. They have run very successful marketing campgains over the past few months on socia media, giving us a strong position in consumers' hearts. See how we outperfrom our closest competitor in terms of brand liking." Sharing her screen, she showed Anne Figure 6.1, which shows the trend of liking for Zanten and its closest competitor over the past 24 months.
+"I am very proud of my team. They have run very successful marketing campaigns over the past few months on social media, giving us a strong position in consumers' hearts. See how we outperform our closest competitor in terms of brand liking." Sharing her screen, she showed Anne Figure 6.1, which shows the trend of liking for Zanten and its closest competitor over the past 24 months.
 
-Zhang continued with a quiet voice: "However, I must admit that the gains in brank liking have not yet been translated into higher revenues. But I believe that these gains in consumer heart share will soon result in better financial performance. We just need to promote ourselves more heavily or increase our advertising substantially, and also believe in ourselves."
+Zhang continued with a quiet voice: "However, I must admit that the gains in brand liking have not yet been translated into higher revenues. But I believe that these gains in consumer heart share will soon result in better financial performance. We just need to promote ourselves more heavily or increase our advertising substantially, and also believe in ourselves."
 
-The CEO thanksed Zhang and said "These analytic insights are great. But htee is anohter pressing issue that we are facing now. The fierce competition is putting a lot of presssure on our margins. As a result, we may need to be a bit careful about how we spend our budget. Therefore, it is extremely important that you justify how these positive changes in consumers' attitudes will turn into better sales performance."
+The CEO thanked Zhang and said "These analytic insights are great. But there is another pressing issue that we are facing now. The fierce competition is putting a lot of pressure on our margins. As a result, we may need to be a bit careful about how we spend our budget. Therefore, it is extremely important that you justify how these positive changes in consumers' attitudes will turn into better sales performance."
 
-After the meeting, Zhang continued her deliverations on how to allocate marketing resoruces taht would provide noticeable and long-lasting improvemewnts not only in customers' attitdues but also in the brand's sales performance. With one eye on her marketing dashboard on her laptop, she called her analytics team.
+After the meeting, Zhang continued her deliberations on how to allocate marketing resources that would provide noticeable and long-lasting improvements not only in customers' attitudes but also in the brand's sales performance. With one eye on her marketing dashboard and the other on her laptop, she called her analytics team.
 
 "I would like you to prepare a report that provides some concrete directions on how the effectiveness of advertising and promotional campaigns can be improved by examining customer mindset metrics," she said. "I wold like to know (1) to what extent the advertising and promotional campaigns run in recent years have affected consumers' attitudes towards the brand and (2) whether the changes in consumers' perceptions have yielded any significant improvements in our brand's sales performance."
 
-To help Zhang, hte marketing analytics team gathered data from variouis sources.
+To help Zhang, the marketing analytics team gathered data from various sources.
 
 Moving forward, Zhang has to decide on her promotion and advertising spending choices, and ponders two options:
 
@@ -49,7 +50,7 @@ Moving forward, Zhang has to decide on her promotion and advertising spending ch
 
 2.  Doubling promotion spending from *£100K* to *£200K*. S
 
-Which of these options should Zhang propose to the CEO? How would these decisions infuence the hearts and minds of consumers, and hte sales performance of the compnay?
+Which of these options should Zhang propose to the CEO? How would these decisions influence the hearts and minds of consumers, and the sales performance of the company?
 
 ## Learning Objectives
 
@@ -65,11 +66,11 @@ Before we start, let us do some preparation work to get ready.
 
 We need to:
 
--   Create a folder (e.g. mindset) under the course directory.
+1.  Create a folder (e.g. mindset) under the course directory.
 
--   Clone GitHub repository of this chapter at <https://github.com/jaejungca/customer-mindset-metrics> to your local machine under the folder you just created.
+2.  Clone GitHub repository of this chapter at <https://github.com/jaejungca/customer-mindset-metrics> to your local machine under the folder you just created.
 
--   The data set for this application, *mindset_shampoo.xlsx* has been moved to "data" folder.
+3.  The data set for this application, *mindset_shampoo.xlsx* has been moved to "data" folder.
 
 ## Packages
 
@@ -212,7 +213,7 @@ Judging from what you have now, which mindset metric should you put more effort 
 
 *Stickiness*, or inertia, is the **degree to which a change in the level of a metric is upheld over time, without any new stimuli**.
 
--   This can be modelled by a simple univariate `AR(p)` process on the attitude metric, where stickiness is quantified as *the sum of the AR coefficients*.
+-   This can be modeled by a simple univariate `AR(p)` process on the attitude metric, where stickiness is quantified as *the sum of the AR coefficients*.
 
 -   To do this, we need to run the following code in R.
 
@@ -245,6 +246,25 @@ stick_liking <- ar3$ar[1] + ar3$ar[2] + ar3$ar[3]
 
 To summarise, stickiness measures for awareness, consideration and liking metrics are 0.764, 0.774 and 0.765, respectively.
 
+### Another perspective:
+
+In the brand-tracking / marketing-science sense, **stickiness** means the **staying power** of a metric like awareness, consideration, or liking. In plain English: after that metric goes up, **how much of the gain lasts** instead of quickly fading back toward normal? Hanssens et al. [@hanssens2014] define it as the inertia or lock-in of a change in the attitudinal metric. In their data, the funnel measures were advertising awareness, inclusion in the consideration set, and brand liking.
+
+It is usually **estimated from time-series brand-tracking data**, not pulled from a single survey snapshot. The model is of the form\
+$$
+A_t = c \times A_{t-1}^{s} \times X_{1t}^{\beta_1} \times X_{2t}^{\beta_2} \times X_{3t}^{\beta_3} \times e^{u_t} ​,
+$$
+
+where $A_t$​ is the current awareness/consideration/liking measure, the X’s are marketing inputs, and $s$ is the **stickiness (carryover) parameter**. 
+
+So, in short, **stickiness is the coefficient on the lagged attitude metric**. The paper says that if $s=0.60$, then about **60% of the change carries into the next period**; values closer to 1 mean a more persistent effect.
+
+::: callout-important
+So, boiled down:
+
+**Stickiness = persistence of awareness/consideration/liking over time = the lagged carryover coefficient in the response model.** 
+:::
+
 ## C. Responsiveness
 
 Responsiveness, or **lift**, is the **short-term response of the attitude metric with respect to a marketing stimulus**.
@@ -257,7 +277,7 @@ $$
 Y_t = cY_{t-1}^\gamma X_{1t}^{\beta_1} X_{2t}^{\beta_2} e^{u_t}
 $$
 
-where *Y* is an attitude metric and $X_i$ (i=1,2) are marketing instruments. Not only do such response models provide readily interpretable results, but they have also been shown to outperform more complex specifications in forecasting product trials for consumer-packaged goods.
+where ***Y*** is an attitude metric and $X_i$ (i=1,2) are marketing instruments. Not only do such response models provide readily interpretable results, but they have also been shown to outperform more complex specifications in forecasting product trials for consumer-packaged goods.
 
 Note that *responsiveness* may be related to **potential** as follows: the closer the attitude metric is to its ceiling value, the more difficult it will be to register further increases through marketing.
 
@@ -1046,7 +1066,7 @@ Given that there is a 24.5% gain in sales, we can tell that:
 :::
 
 ::: callout-note
-**Question 3**: What is your takeaway from the above scenario analyses? Which marketing tool (i.e. promotion or advertising) is more effective for the marketing manager of Zanten to improve consumer awareness, consideration and liking? What type of marketing strategy would you like to recommend Ms. Zhang to adopt in general?
+**Question 3**: As Ms Zhang has to decide on the choices on two options, which of the two options should she propose to the CEO? Which marketing tool (i.e. promotion or advertising) is more effective for the marketing manager of Zanten to improve consumer awareness, consideration and liking? how should Ms Zhang justify her proposal to the CEO?
 :::
 
 # Saving and Loading Files
@@ -1057,3 +1077,5 @@ Given that there is a 24.5% gain in sales, we can tell that:
 save.image("my_session.RData")
 load("my_session.RData")
 ```
+
+# References
